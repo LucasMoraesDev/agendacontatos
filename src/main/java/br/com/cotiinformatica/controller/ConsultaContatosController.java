@@ -19,26 +19,22 @@ public class ConsultaContatosController {
 	public ModelAndView consultaContatos(HttpServletRequest request) {
 		// WEB-INF/views/admin/consulta-contatos.jsp
 		ModelAndView modelAndView = new ModelAndView("admin/consulta-contatos");
-		
+
 		try {
-			
-			//ler os dados do usuário gravado na sessão
+
+			// ler os dados do usuário gravado na sessão
 			Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-			
-			//acessando o repositório
+
+			// acessando o repositório
 			ContatoRepository contatoRepository = new ContatoRepository();
 			List<Contato> contatos = contatoRepository.findByUsuario(usuario.getIdUsuario());
-			
-			//enviando a lista de contatos para a página
+
+			// enviando a lista de contatos para a página
 			modelAndView.addObject("contatos", contatos);
-		}
-		catch(Exception e) {
+		} catch (Exception e) {
 			modelAndView.addObject("mensagem_erro", "Falha ao consultar contatos: " + e.getMessage());
 		}
-		
+
 		return modelAndView;
 	}
 }
-
-
-
